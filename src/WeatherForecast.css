@@ -1,9 +1,11 @@
-.WeatherForecast {
-    text-align: center;
-    color:olive;
-  }
-  
-  .WeatherForecast-temperature-min {
-    opacity: 0.6;
-    margin-left: 5px;
-  }
+.day .icon {
+    display: block;
+}
+.forecast-temp{
+    display: block;
+}
+@media (max-width: 576px) {
+    .forecast-temp{
+        display: inline;
+    }
+}

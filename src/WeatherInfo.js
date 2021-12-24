@@ -1,34 +1,23 @@
 import React from "react";
-import FormattedDate from "./FormattedDate";
-import WeatherIcon from "./WeatherIcon";
-import WeatherTemperature from "./WeatherTemp";
+import WeatherIcons from "./WeatherIcons";
+import WeatherTemp from "./WeatherTemp";
+import FormatedDate from "./FormatedDate";
 
 export default function WeatherInfo(props) {
   return (
-    <div className="WeatherInfo">
-      <h1>{props.data.city}</h1>
-      <ul>
-        <li>
-          <FormattedDate date={props.data.date} />
-        </li>
-        <li className="text-capitalize">{props.data.description}</li>
-      </ul>
-      <div className="row mt-3">
-        <div className="col-6">
-          <div className="clearfix">
-            <div className="float-left">
-              <WeatherIcon code={props.data.icon} size={52} />
-            </div>
-
-            <div className="float-left">
-              <WeatherTemperature celsius={props.data.temperature} />
-            </div>
-          </div>
+    <div className="weather-info">
+      <h2>{props.data.cityName}</h2>
+      <FormatedDate date={props.data.date} />
+      <h3 className="text-capitalize">{props.data.description}</h3>
+      <div className="row main">
+        <div className="col-sm-6">
+          <WeatherIcons className="icon" code={props.data.icon} size={60} />
+          <WeatherTemp fahr={props.data.temp} />
         </div>
-        <div className="col-6">
+        <div className="col-sm-6">
           <ul>
-            <li>Humidity: {props.data.humidity}%</li>
-            <li>Wind: {props.data.wind} km/h</li>
+            <li>Humidity {props.data.humidity}%</li>
+            <li>Wind {props.data.wind} km/hr</li>
           </ul>
         </div>
       </div>

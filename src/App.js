@@ -1,13 +1,14 @@
 import React from "react";
 import Weather from "./Weather";
+
 import "./App.css";
 
-export default function App() {
+function App() {
   return (
     <div className="App">
       <div className="container">
-        <Weather defaultCity="New York" />
-
+        <Weather />
+        <div className="source-code">
         <footer>
           This project was coded by
           
@@ -30,7 +31,10 @@ export default function App() {
             hosted on Netlify
           </a>
         </footer>
+        </div>
       </div>
     </div>
   );
 }
+
+export default App;
