@@ -1,5 +1,5 @@
 import React from "react";
-import WeatherIcons from "./WeatherIcons";
+import WeatherIcons from "./WeatherIcon";
 
 export default function WeatherForecastDay(props) {
   function day() {
