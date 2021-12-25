@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import WeatherInfo from "./WeatherInfo";
 import axios from "axios";
 import "./WeatherForecast.css";
 
 export default function WeatherForecast(props){
     let [loaded, setLoaded] = useState(false);
-    let [Weatherforecast, setForecast] = useState(null);
+    let [weatherForecast, setForecast] = useState(null);
 
-    useEffect(() => {
+    useState(() => {
         setLoaded(false);
     }, [props.data.coord]);
     
@@ -16,20 +15,21 @@ setForecast(response.data.daily)
 setLoaded(true);
     }
 
-  function search() {
-    const apiKey = "8ae332b284d255af8688a4dfad71bb1a";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  function load() {
+    let lat = props.data.coord.lat
+    let lon = props.data.coord.lon;
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=8ae332b284d255af8688a4dfad71bb1a&units=metric`;
     axios.get(apiUrl).then(handleResponse);
   }
 
   if (loaded) {
     return (
       <div className="row">
-          {forecast.map(function (dailyForecast, index){
+          {weatherForecast.map(function (dailyForecast, index){
               if (index < 6) {
                   return(
               <div className="col-6 col-sm-2" key={index}>
-          <WeatherForecastDay data={dailyForecast}/>
+          <weatherForecastDay data={dailyForecast}/>
         </div>
           );
         } else {
