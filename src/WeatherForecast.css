@@ -1,5 +1,6 @@
 .day .icon {
     display: block;
+    color: palegreen;
 }
 .forecast-temp{
     display: block;
@@ -7,5 +8,6 @@
 @media (max-width: 576px) {
     .forecast-temp{
         display: inline;
+        color: magenta;
     }
 }

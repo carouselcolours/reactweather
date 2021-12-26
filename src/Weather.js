@@ -5,7 +5,7 @@ import Forecast from "./WeatherForecast";
 
 import "./Weather.css"
 
-export default function Weather() {
+export default function Weather(props) {
   const [weather, setWeather] = useState({ ready: false });
   const [city, setCity] = useState("Sydney");
   
@@ -25,13 +25,13 @@ export default function Weather() {
     });
   }
   
-  function handleSubmit(event) {
-    event.preventDefault();
-    getCity();
-  }
   function getCity() {
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=8ae332b284d255af8688a4dfad71bb1a&units=imperial`;
  axios.get(apiUrl).then(getWeather);
+  }
+  function handleSubmit(event) {
+    event.preventDefault();
+    getCity();
   }
   function updateCity(event) {
     setCity(event.target.value);
