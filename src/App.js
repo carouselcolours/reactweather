@@ -24,7 +24,7 @@ function App() {
           </a>{" "}
           and{" "}
           <a
-            href="https://netlify.com/"
+            href="https://romantic-davinci-66c4b8.netlify.app/"
             target="_blank"
             rel="noopener noreferrer"
           >
