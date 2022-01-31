@@ -1,13 +1,33 @@
-.day .icon {
+.WeatherForecast {
+    text-align: center;
+    margin: 40px 0;
+    border-bottom: 1px solid #bdd3e1;
+    padding-bottom: 50px;
+  }
+  
+  .WeatherForecast .forecast-time {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 20px;
+    text-align: center;
+    color: #67074e;
+  }
+  
+  .WeatherForecast .forecast-temperature {
+    font-style: normal;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #05878a;
+    
+  }
+  
+  .WeatherForecast .forecast-temperature-min {
+    margin-left: 10px;
+    opacity: 0.6;
+  }
+  
+  .Weather .WeatherForecast canvas {
     display: block;
-    color: palegreen;
-}
-.forecast-temp{
-    display: block;
-}
-@media (max-width: 576px) {
-    .forecast-temp{
-        display: inline;
-        color: magenta;
-    }
-}
+    margin: 20px auto;
+  }
+  

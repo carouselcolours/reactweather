@@ -1,46 +1,44 @@
-import React, { useState } from "react";
-import axios from "axios";
-import "./WeatherForecast.css";
 
-export default function WeatherForecast(props){
-    let [loaded, setLoaded] = useState(false);
-    let [weatherForecast, setForecast] = useState(null);
-
-    useState(() => {
-        setLoaded(false);
-    }, [props.data.coord]);
+    import React, { useState, useEffect } from "react";
+    import WeatherForecastDay from "./WeatherForecastDay";
+    import axios from "axios";
+    import "./WeatherForecast.css";
     
-    function handleResponse(response) {
-setForecast(response.data.daily)
-setLoaded(true);
+    export default function WeatherForecast(props) {
+      const [loaded, setLoaded] = useState(false);
+      const [forecast, setForecast] = useState(null);
+    
+      useEffect(() => {
+        setLoaded(false);
+      }, [props.coordinates]);
+    
+      function handleForecastResponse(response) {
+        setForecast(response.data.daily);
+        setLoaded(true);
+      }
+    
+      if (loaded) {
+        return (
+          <div className="WeatherForecast row">
+            {forecast.map(function (day, index) {
+              if (index < 5) {
+                return (
+                  <div className="col" key={index}>
+                    <WeatherForecastDay data={day} />
+                  </div>
+                );
+              } else {
+                return null;
+              }
+            })}
+          </div>
+        );
+      } else {
+        let apiKey = "8ae332b284d255af8688a4dfad71bb1a";
+        let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${props.coordinates.lat}&lon=${props.coordinates.lon}&appid=${apiKey}&units=metric`;
+    
+        axios.get(url).then(handleForecastResponse);
+    
+        return null;
+      }
     }
-
-  function load() {
-    let lat = props.data.coord.lat
-    let lon = props.data.coord.lon;
-    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=8ae332b284d255af8688a4dfad71bb1a&units=metric`;
-    axios.get(apiUrl).then(handleResponse);
-  }
-
-  if (loaded) {
-    return (
-      <div className="row">
-          {weatherForecast.map(function (dailyForecast, index){
-              if (index < 6) {
-                  return(
-              <div className="col-6 col-sm-2" key={index}>
-          <weatherForecastDay data={dailyForecast}/>
-        </div>
-          );
-        } else {
-            return null;
-        }
-          })}
-        
-      </div>
-    );
-} else {
-    load();
-    return null;
-}
-}

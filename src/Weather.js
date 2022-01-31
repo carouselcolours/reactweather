@@ -1,65 +1,91 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
+import WeatherTemp from "./WeatherTemp";
+import WeatherForecast from "./WeatherForecast";
 import axios from "axios";
-import WeatherInfo from "./WeatherInfo";
-import Forecast from "./WeatherForecast";
-
-import "./Weather.css"
+import "./Weather.css";
 
 export default function Weather(props) {
-  const [weather, setWeather] = useState({ ready: false });
-  const [city, setCity] = useState("Sydney");
-  
+  const [weatherData, setWeatherData] = useState({ ready: false });
+  const [city, setCity] = useState(props.defaultCity);
 
-  function getWeather(response){
-    console.log(response)
-    setWeather({
+  function handleResponse(response) {
+    setWeatherData({
       ready: true,
-      cityName: response.data.name,
-      description: response.data.weather[0].description,
+      coordinates: response.data.coord,
+      temperature: response.data.main.temp,
       humidity: response.data.main.humidity,
-      wind: response.data.wind.speed,
-      temp: Math.round(response.data.main.temp),
-      iconUrl: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
       date: new Date(response.data.dt * 1000),
-      coord: response.data.coord
+      description: response.data.weather[0].description,
+      icon: "http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png",
+      wind: response.data.wind.speed,
+      city: response.data.name,
     });
   }
-  
-  function getCity() {
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=8ae332b284d255af8688a4dfad71bb1a&units=imperial`;
- axios.get(apiUrl).then(getWeather);
-  }
+
   function handleSubmit(event) {
     event.preventDefault();
-    getCity();
+    search();
   }
-  function updateCity(event) {
+
+  function handleCityChange(event) {
     setCity(event.target.value);
   }
-if (weather.ready) {
-  return (
-    <div className="weather">
-      <form onSubmit={handleSubmit}>
-        <div className="row">
-          <div className="col-8">
-            <input
-              type="search"
-              placeholder="Search"
-              className="w-100"
-              onChange={updateCity}
-            />
+  
+  function search() {
+    const apiKey = "8ae332b284d255af8688a4dfad71bb1a"
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(handleResponse);
+  }
+  
+  if (weatherData.ready) {
+    return (
+      <div className="Weather">
+         <form onSubmit={handleSubmit}>
+          <div className="row">
+            <div className="col-9 ">
+              <input
+                type="search"
+                placeholder="Enter Town or City Here"
+                className="form-control search-input"
+                onChange={handleCityChange}
+              />
+       </div>
+
+       <div className="col-3 p-0">
+              <input
+                type="submit"
+                value="Search"
+                className="btn btn-primary w-100"
+              />
+            </div>
           </div>
-          <div className="col-4">
-            <input type="submit" value="Search" className="w-100" />
-          </div>
-        </div>
-      </form>
-      <WeatherInfo data={weather}/>
-      <Forecast data={weather} />
-    </div>
-  );
-} else {
-getCity();
-  return (
-<h2>Loading...</h2>
-  )}}
+        </form>
+        <WeatherTemp data={weatherData} />
+        <WeatherForecast coordinates={weatherData.coordinates} />
+        <footer>
+          This project was coded by {"Danielle Parker "}
+           
+          and is{" "}
+          <a
+            href="https://github.com/carouselcolours"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            open-sourced on GitHub
+          </a>{" "}
+          and{" "}
+          <a
+            href="https://shecodes-weather.netlify.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            hosted on Netlify
+          </a>
+        </footer>
+      </div>
+    );
+  } else {
+    search();
+    return "Loading...";
+  }
+}

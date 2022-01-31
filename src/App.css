@@ -2,6 +2,8 @@
   text-align: center;
 }
 
-.body {
-  background-color: orange;
+
+.App {
+  max-width: 800px;
+  margin: 60px auto;
 }
