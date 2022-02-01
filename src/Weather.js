@@ -20,8 +20,8 @@ export default function Weather(props) {
       icon: "http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png",
       wind: response.data.wind.speed,
       city: response.data.name,
-    });
-  
+    })
+   
 
   function handleSubmit(event) {
     event.preventDefault();
