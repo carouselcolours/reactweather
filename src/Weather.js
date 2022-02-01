@@ -67,7 +67,7 @@ export default function Weather(props) {
            
           and is{" "}
           <a
-            href="https://github.com/carouselcolours"
+            href="https://github.com/carouselcolours/reactweather"
             target="_blank"
             rel="noopener noreferrer"
           >
