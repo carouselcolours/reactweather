@@ -7,6 +7,7 @@ import "./Weather.css";
 export default function Weather(props) {
   const [weatherData, setWeatherData] = useState({ ready: false });
   const [city, setCity] = useState(props.defaultCity);
+}
 
   function handleResponse(response) {
     setWeatherData({
@@ -20,7 +21,7 @@ export default function Weather(props) {
       wind: response.data.wind.speed,
       city: response.data.name,
     });
-  }
+  
 
   function handleSubmit(event) {
     event.preventDefault();
